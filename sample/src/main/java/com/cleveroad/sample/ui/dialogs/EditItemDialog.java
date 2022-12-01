@@ -7,10 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
-import androidx.core.app.DialogFragment;
-import androidx.core.app.Fragment;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +17,8 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.cleveroad.sample.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -92,11 +92,11 @@ public class EditItemDialog extends DialogFragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        Window window = getDialog().getWindow();
+        Window window = Objects.requireNonNull(getDialog()).getWindow();
         if (window != null) {
             DisplayMetrics dm = new DisplayMetrics();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(dm);
+                requireActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
             }
             int height = dm.heightPixels;
             int width = dm.widthPixels;

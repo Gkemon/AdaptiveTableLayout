@@ -1,7 +1,7 @@
 package com.cleveroad.sample.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.cleveroad.sample.R;
@@ -17,7 +17,9 @@ public class SampleActivity extends AppCompatActivity implements
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.container, CsvPickerFragment.newInstance(), CsvPickerFragment.class.getSimpleName())
+                    .add(R.id.container,
+                            CsvPickerFragment.newInstance(),
+                            CsvPickerFragment.class.getSimpleName())
                     .commit();
         }
     }
@@ -29,7 +31,8 @@ public class SampleActivity extends AppCompatActivity implements
             if (file.exists() && fileName.endsWith(".csv")) {
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.container, TableLayoutFragment.newInstance(fileName), CsvPickerFragment.class.getSimpleName())
+                        .replace(R.id.container, TableLayoutFragment.newInstance(fileName),
+                                CsvPickerFragment.class.getSimpleName())
                         .addToBackStack(CsvPickerFragment.class.getSimpleName())
                         .commit();
             } else {

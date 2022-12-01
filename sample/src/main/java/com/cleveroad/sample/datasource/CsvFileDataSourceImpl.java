@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import androidx.core.app.LoaderManager;
-import androidx.core.content.Loader;
+
+import androidx.annotation.NonNull;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;

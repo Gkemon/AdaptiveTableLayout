@@ -1,22 +1,23 @@
 package com.cleveroad.sample.ui.dialogs;
 
+import static com.cleveroad.sample.datasource.Constants.EXTRA_BEFORE_OR_AFTER;
+import static com.cleveroad.sample.datasource.Constants.EXTRA_COLUMN_NUMBER;
+import static com.cleveroad.sample.datasource.Constants.REQUEST_CODE_ADD_COLUMN_CONFIRMED;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.DialogFragment;
-import androidx.core.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cleveroad.sample.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
-import static com.cleveroad.sample.datasource.Constants.EXTRA_BEFORE_OR_AFTER;
-import static com.cleveroad.sample.datasource.Constants.EXTRA_COLUMN_NUMBER;
-import static com.cleveroad.sample.datasource.Constants.REQUEST_CODE_ADD_COLUMN_CONFIRMED;
+import com.cleveroad.sample.R;
 
 public class AddColumnDialog extends DialogFragment implements View.OnClickListener {
     private int mColumn;

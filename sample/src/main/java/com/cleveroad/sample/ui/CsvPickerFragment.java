@@ -11,7 +11,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.Fragment;
+import androidx.fragment.app.Fragment;
+
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -150,8 +151,9 @@ public class CsvPickerFragment extends Fragment implements View.OnClickListener 
             if (!file.exists() && file.createNewFile()) {
                 InputStream inputStream = null;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    inputStream = Objects.requireNonNull(getContext()).getAssets().open("fifa100.csv");
+                    inputStream = requireContext().getAssets().open("fifa100.csv");
                 }
+                assert inputStream != null;
                 FileUtils.copy(inputStream, file);
             }
         } catch (IOException e) {

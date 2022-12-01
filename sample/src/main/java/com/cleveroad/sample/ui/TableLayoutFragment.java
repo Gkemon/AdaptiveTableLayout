@@ -8,9 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import androidx.core.app.Fragment;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -33,6 +32,7 @@ import com.cleveroad.sample.ui.dialogs.DeleteDialog;
 import com.cleveroad.sample.ui.dialogs.EditItemDialog;
 import com.cleveroad.sample.ui.dialogs.SettingsDialog;
 import com.cleveroad.sample.utils.PermissionHelper;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
@@ -73,7 +73,7 @@ public class TableLayoutFragment
     private AdaptiveTableLayout mTableLayout;
     private ProgressBar progressBar;
     private View vHandler;
-    private Snackbar mSnackbar;
+
 
     public static TableLayoutFragment newInstance(@NonNull String filename) {
         Bundle args = new Bundle();
@@ -88,7 +88,7 @@ public class TableLayoutFragment
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mCsvFile = Uri.parse(Objects.requireNonNull(getArguments()).getString(EXTRA_CSV_FILE));
+            mCsvFile = Uri.parse(requireArguments().getString(EXTRA_CSV_FILE));
         }
         mCsvFileDataSource = new CsvFileDataSourceImpl(getContext(), mCsvFile);
     }
@@ -107,7 +107,7 @@ public class TableLayoutFragment
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    Objects.requireNonNull(getActivity()).onBackPressed();
+                    requireActivity().onBackPressed();
                 }
             }
         });
@@ -139,21 +139,12 @@ public class TableLayoutFragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mSnackbar = Snackbar.make(view, R.string.changes_saved, Snackbar.LENGTH_INDEFINITE);
-        TextView tv = mSnackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
-        tv.setMaxLines(3);
-        mSnackbar.setAction("Close", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSnackbar.dismiss();
-            }
-        });
     }
 
     private void applyChanges() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (PermissionHelper.checkOrRequest(
-                    Objects.requireNonNull(getActivity()),
+                    requireActivity(),
                     REQUEST_EXTERNAL_STORAGE,
                     PERMISSIONS_STORAGE)) {
                 showProgress();
@@ -170,7 +161,7 @@ public class TableLayoutFragment
     private void applyChanges(int actionChangeData, int position, boolean beforeOrAfter) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (PermissionHelper.checkOrRequest(
-                    Objects.requireNonNull(getActivity()),
+                    requireActivity(),
                     REQUEST_EXTERNAL_STORAGE,
                     PERMISSIONS_STORAGE)) {
                 showProgress();
@@ -282,14 +273,6 @@ public class TableLayoutFragment
             mCsvFileDataSource = new CsvFileDataSourceImpl(getContext(), mCsvFile);
 
             initAdapter();
-            if (mSnackbar != null) {
-                if (mSnackbar.isShown()) {
-                    mSnackbar.dismiss();
-                }
-                String text = getString(R.string.changes_saved) + " path = " + filePath;
-                mSnackbar.setText(text);
-                mSnackbar.show();
-            }
 
         } else {
             Snackbar.make(view, R.string.unexpected_error, Snackbar.LENGTH_INDEFINITE).show();
