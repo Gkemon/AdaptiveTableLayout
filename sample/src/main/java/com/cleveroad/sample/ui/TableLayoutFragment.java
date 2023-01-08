@@ -112,25 +112,19 @@ public class TableLayoutFragment
             }
         });
         toolbar.inflateMenu(R.menu.table_layout);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.actionSave) {
-                    applyChanges();
-                } else if (item.getItemId() == R.id.actionSettings) {
-                    SettingsDialog.newInstance(
-                            mTableLayout.isHeaderFixed(),
-                            mTableLayout.isSolidRowHeader(),
-                            mTableLayout.isRTL(),
-                            mTableLayout.isDragAndDropEnabled())
-                            .show(getChildFragmentManager(), SettingsDialog.class.getSimpleName());
-                }
-                return true;
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.actionSave) {
+                applyChanges();
+            } else if (item.getItemId() == R.id.actionSettings) {
+                SettingsDialog.newInstance(
+                        mTableLayout.isHeaderFixed(),
+                        mTableLayout.isSolidRowHeader(),
+                        mTableLayout.isRTL(),
+                        mTableLayout.isDragAndDropEnabled())
+                        .show(getChildFragmentManager(), SettingsDialog.class.getSimpleName());
             }
+            return true;
         });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//            mTableLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        }
         initAdapter();
 
         return view;
