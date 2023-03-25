@@ -6,8 +6,6 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 33
-        versionCode 8
-        versionName "1.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -17,6 +15,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'com.cleveroad.adaptivetablelayout'
 }
 
 dependencies {
