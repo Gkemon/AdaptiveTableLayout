@@ -11,6 +11,10 @@ import java.util.List;
  * can be used in {@link AdaptiveTableLayout}.
  */
 public abstract class LinkedAdaptiveTableAdapter<VH extends ViewHolder> implements AdaptiveTableAdapter<VH> {
+    protected static final int[] COLORS = new int[]{
+            0xffe62a10, 0xffe91e63, 0xff9c27b0, 0xff673ab7, 0xff3f51b5,
+            0xff5677fc, 0xff03a9f4, 0xff00bcd4, 0xff009688, 0xff259b24,
+            0xff8bc34a, 0xffcddc39, 0xffffeb3b, 0xffffc107, 0xffff9800, 0xffff5722};
     protected boolean mIsRtl;
     /**
      * Set with observers
