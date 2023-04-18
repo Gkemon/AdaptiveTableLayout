@@ -1055,35 +1055,7 @@ public class AdaptiveTableLayout extends ViewGroup implements ScrollHelper.Scrol
                 if (dragAndDropHolder != null) {
                     int fromColumn = dragAndDropHolder.getColumnIndex();
                     int toColumn = mManager.getColumnByXWithShift(absoluteX, mSettings.getCellMargin());
-                    if (fromColumn != toColumn) {
-                        int columnWidth = mManager.getColumnWidth(toColumn);
-                        int absoluteColumnX = mManager.getColumnsWidth(0, toColumn);
-                        if (!isRTL()) {
-                            absoluteColumnX += mManager.getHeaderRowWidth();
-                        }
-
-                        if (fromColumn < toColumn) {
-                            // left column is dragging one
-                            int deltaX = (int) (absoluteColumnX + columnWidth * 0.6f);
-                            if (absoluteX > deltaX) {
-                                // move column from left to right
-                                for (int i = fromColumn; i < toColumn; i++) {
-                                    shiftColumnsViews(i, i + 1);
-                                }
-                                mState.setColumnDragging(true, toColumn);
-                            }
-                        } else {
-                            // right column is dragging one
-                            int deltaX = (int) (absoluteColumnX + columnWidth * 0.4f);
-                            if (absoluteX < deltaX) {
-                                // move column from right to left
-                                for (int i = fromColumn; i > toColumn; i--) {
-                                    shiftColumnsViews(i - 1, i);
-                                }
-                                mState.setColumnDragging(true, toColumn);
-                            }
-                        }
-                    }
+                    doDragAndDrop(absoluteX, fromColumn, toColumn);
                 }
             } else if (mState.isRowDragging()) {
                 ViewHolder dragAndDropHolder = mHeaderRowViewHolders.get(mState.getRowDraggingIndex());
@@ -1131,6 +1103,38 @@ public class AdaptiveTableLayout extends ViewGroup implements ScrollHelper.Scrol
             return true;
         }
         return mScrollHelper.onTouch(event);
+    }
+
+    private void doDragAndDrop(int absoluteX, int fromColumn, int toColumn) {
+        if (fromColumn != toColumn) {
+            int columnWidth = mManager.getColumnWidth(toColumn);
+            int absoluteColumnX = mManager.getColumnsWidth(0, toColumn);
+            if (!isRTL()) {
+                absoluteColumnX += mManager.getHeaderRowWidth();
+            }
+
+            if (fromColumn < toColumn) {
+                // left column is dragging one
+                int deltaX = (int) (absoluteColumnX + columnWidth * 0.6f);
+                if (absoluteX > deltaX) {
+                    // move column from left to right
+                    for (int i = fromColumn; i < toColumn; i++) {
+                        shiftColumnsViews(i, i + 1);
+                    }
+                    mState.setColumnDragging(true, toColumn);
+                }
+            } else {
+                // right column is dragging one
+                int deltaX = (int) (absoluteColumnX + columnWidth * 0.4f);
+                if (absoluteX < deltaX) {
+                    // move column from right to left
+                    for (int i = fromColumn; i > toColumn; i--) {
+                        shiftColumnsViews(i - 1, i);
+                    }
+                    mState.setColumnDragging(true, toColumn);
+                }
+            }
+        }
     }
 
     /**
@@ -1435,7 +1439,7 @@ public class AdaptiveTableLayout extends ViewGroup implements ScrollHelper.Scrol
                 mState.setColumnDragging(false, viewHolder.getColumnIndex());
 
                 // set dragging flags to row's view holder
-                setDraggingToRow(viewHolder.getRowIndex(), true);
+                setDraggingToRow(viewHolder.getRowIndex());
 
                 mShadowHelper.removeRowsHeadersShadow(this);
 
@@ -1484,19 +1488,18 @@ public class AdaptiveTableLayout extends ViewGroup implements ScrollHelper.Scrol
     /**
      * Method set dragging flag to all view holders in the specific row
      *
-     * @param row        specific row
-     * @param isDragging flag to set
+     * @param row specific row
      */
     @SuppressWarnings("unused")
-    private void setDraggingToRow(int row, boolean isDragging) {
+    private void setDraggingToRow(int row) {
         Collection<ViewHolder> holders = mViewHolders.getRowItems(row);
         for (ViewHolder holder : holders) {
-            holder.setIsDragging(isDragging);
+            holder.setIsDragging(true);
         }
 
         ViewHolder holder = mHeaderRowViewHolders.get(row);
         if (holder != null) {
-            holder.setIsDragging(isDragging);
+            holder.setIsDragging(true);
         }
     }
 
