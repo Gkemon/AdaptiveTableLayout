@@ -141,6 +141,7 @@ public abstract class LinkedAdaptiveTableAdapter<VH extends ViewHolder> implemen
     @Override
     public void onViewHolderRecycled(@NonNull VH viewHolder) {
         //do something
+        viewHolder.onViewRecycled();
     }
 
     public boolean isRtl() {

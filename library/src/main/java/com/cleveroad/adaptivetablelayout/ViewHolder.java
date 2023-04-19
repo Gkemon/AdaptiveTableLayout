@@ -54,4 +54,6 @@ interface ViewHolder {
      * @param isDragging dragging param
      */
     void setIsDragging(boolean isDragging);
+
+    void onViewRecycled();
 }

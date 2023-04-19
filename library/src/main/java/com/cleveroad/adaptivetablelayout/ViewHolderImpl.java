@@ -97,4 +97,9 @@ public abstract class ViewHolderImpl implements ViewHolder {
     public void setIsDragging(boolean isDragging) {
         mIsDragging = isDragging;
     }
+
+    @Override
+    public void onViewRecycled() {
+
+    }
 }
