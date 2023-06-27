@@ -112,30 +112,10 @@ public class SettingsDialog extends DialogFragment implements View.OnClickListen
         swRtlDirection.setChecked(mIsRtlDirection);
         swDragAndDropEnabled.setChecked(mIsDragAndDropEnabled);
 
-        swFixedHeaders.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mIsHeaderFixed = isChecked;
-            }
-        });
-        swSolidRow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mSolidRowHeader = isChecked;
-            }
-        });
-        swRtlDirection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                mIsRtlDirection = isChecked;
-            }
-        });
-        swDragAndDropEnabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                mIsDragAndDropEnabled = isChecked;
-            }
-        });
+        swFixedHeaders.setOnCheckedChangeListener((buttonView, isChecked) -> mIsHeaderFixed = isChecked);
+        swSolidRow.setOnCheckedChangeListener((buttonView, isChecked) -> mSolidRowHeader = isChecked);
+        swRtlDirection.setOnCheckedChangeListener((compoundButton, isChecked) -> mIsRtlDirection = isChecked);
+        swDragAndDropEnabled.setOnCheckedChangeListener((compoundButton, isChecked) -> mIsDragAndDropEnabled = isChecked);
 
     }
 
