@@ -4,7 +4,7 @@ android {
     compileSdkVersion 33
     defaultConfig {
         applicationId "com.cleveroad.tablelayout"
-        minSdkVersion 16
+        minSdkVersion 23
         targetSdkVersion 33
         versionCode 8
         versionName "1.2.0"
